@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Šilutės profesinio mokymo centro chatbotas</title>
+
+  <link rel="stylesheet"
+    href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+  <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+
+  <style>
+    :root {
+      --pmc-blue: #2f5b94;
+      --pmc-blue-dark: #23497a;
+      --pmc-blue-light: #eaf3fb;
+      --pmc-accent: #f28c6f;
+      --pmc-text: #1f2937;
+      --pmc-muted: #5b6470;
+      --pmc-white: #ffffff;
+      --pmc-bg: #f5f7fb;
+      --pmc-shadow: 0 12px 30px rgba(31, 41, 55, 0.12);
+      --pmc-radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--pmc-text);
+      background:
+        linear-gradient(180deg, #f7f8fb 0%, #eef4fb 100%);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--pmc-blue) 0%, var(--pmc-blue-dark) 100%);
+      color: var(--pmc-white);
+      padding: 72px 20px 88px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 480px;
+      height: 480px;
+      right: -120px;
+      top: -120px;
+      background: #ffffff;
+    }
+
+    .hero::after {
+      width: 320px;
+      height: 320px;
+      left: -80px;
+      bottom: -120px;
+      background: #ffffff;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(242, 140, 111, 0.18);
+      color: #ffe3da;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: 48px;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 640px;
+      font-size: 19px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 14px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .hero-btn-primary {
+      background: var(--pmc-accent);
+      color: var(--pmc-white);
+    }
+
+    .hero-btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--pmc-white);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px;
+      padding: 28px;
+      backdrop-filter: blur(6px);
+      box-shadow: var(--pmc-shadow);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+    }
+
+    .hero-card p {
+      font-size: 16px;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .hero-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 12px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .hero-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pmc-accent);
+    }
+
+    .main {
+      max-width: 1150px;
+      margin: -44px auto 0;
+      padding: 0 20px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-panel {
+      background: var(--pmc-white);
+      border-radius: 24px;
+      box-shadow: var(--pmc-shadow);
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .info-panel h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      color: var(--pmc-blue);
+    }
+
+    .info-panel p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--pmc-muted);
+      max-width: 900px;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 28px;
+      color: var(--pmc-blue);
+    }
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .example-card {
+      background: var(--pmc-white);
+      border-radius: 18px;
+      box-shadow: var(--pmc-shadow);
+      padding: 20px 18px;
+      min-height: 130px;
+      border-top: 5px solid var(--pmc-accent);
+      transition: transform 0.2s ease;
+    }
+
+    .example-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .example-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pmc-blue);
+      background: var(--pmc-blue-light);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .example-card p {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 16px;
+      color: var(--pmc-text);
+      font-weight: 700;
+    }
+
+    .note-box {
+      margin-top: 28px;
+      background: #fff7f3;
+      border-left: 6px solid var(--pmc-accent);
+      border-radius: 18px;
+      padding: 20px 22px;
+      color: #6b4b42;
+      line-height: 1.7;
+      box-shadow: 0 8px 22px rgba(31, 41, 55, 0.06);
+    }
+
+    .footer {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 20px 120px;
+      color: var(--pmc-muted);
+      font-size: 14px;
+    }
+
+    .footer-box {
+      border-top: 1px solid rgba(47, 91, 148, 0.15);
+      padding-top: 22px;
+    }
+
+    df-messenger {
+      z-index: 999;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+
+      --df-messenger-font-family: Arial, sans-serif;
+      --df-messenger-chat-background: #f3f6fc;
+      --df-messenger-message-bot-background: #ffffff;
+      --df-messenger-message-user-background: #f28c6f;
+      --df-messenger-titlebar-background: #2f5b94;
+      --df-messenger-titlebar-font-color: #ffffff;
+      --df-messenger-send-icon: #2f5b94;
+      --df-messenger-font-color: #000000;
+    }
+
+    @media (max-width: 1050px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .examples-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding: 56px 16px 72px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .hero-card {
+        padding: 22px;
+      }
+
+      .main {
+        padding: 0 16px 70px;
+      }
+
+      .info-panel,
+      .example-card {
+        padding: 20px;
+      }
+
+      .info-panel h2,
+      .section-title {
+        font-size: 24px;
+      }
+
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
+
+      df-messenger {
+        bottom: 14px;
+        right: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">Bakalauro darbo demonstracinė versija</div>
+        <h1>Šilutės profesinio mokymo centro chatbotas</h1>
+        <p>
+          Šis chatbotas padeda būsimiems ir esamiems mokiniams gauti informaciją apie
+          mokyklą, siūlomas profesijas, dokumentus, stipendiją, bendrabutį ir kur kreiptis
+          įvairiais klausimais.
+        </p>
+
+        <div class="hero-actions">
+          <a class="hero-btn hero-btn-primary" href="#klausimai">Pavyzdiniai klausimai</a>
+          <a class="hero-btn hero-btn-secondary" href="#aprasymas">Apie chatbotą</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2>Ką gali šis botas?</h2>
+        <p>
+          Chatbotas sukurtas kaip informacinė ir nukreipianti priemonė, padedanti greičiau
+          rasti aktualią informaciją ir tinkamą kontaktą.
+        </p>
+        <ul class="hero-list">
+          <li>Pateikia informaciją būsimiems mokiniams</li>
+          <li>Atsako apie stipendiją ir bendrabutį</li>
+          <li>Nukreipia, kur kreiptis pagal situaciją</li>
+          <li>Padeda esamiems mokiniams rasti atsakingus asmenis</li>
+          <li>Naudoja Dialogflow CX, webhook ir Google Sheets duomenis</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="info-panel" id="aprasymas">
+      <h2>Apie chatbotą</h2>
+      <p>
+        Chatbotas sukurtas testinei demonstracinei aplinkai. Jis leidžia išbandyti pagrindinius
+        dialogo scenarijus prieš galutinę integraciją į oficialią mokyklos svetainę.
+      </p>
+    </section>
+
+    <section id="klausimai">
+      <h2 class="section-title">Pabandykite paklausti</h2>
+
+      <div class="examples-grid">
+        <div class="example-card">
+          <span class="example-label">Būsimiems mokiniams</span>
+          <p>Kokios profesijos siūlomos?</p>
+        </div>
+
+        <div class="example-card">
+          <span class="example-label">Kontaktai</span>
+          <p>Kur kreiptis dėl pažymos?</p>
+        </div>
+
+        <div class="example-card">
+          <span class="example-label">Bendrabutis</span>
+          <p>Ar yra bendrabutis?</p>
+        </div>
+
+        <div class="example-card">
+          <span class="example-label">Stipendija</span>
+          <p>Kaip gauti stipendiją?</p>
+        </div>
+
+        <div class="example-card">
+          <span class="example-label">Vedlys</span>
+          <p>Man reikia pagalbos</p>
+        </div>
+      </div>
+
+      <div class="note-box">
+        Šiame puslapyje pateikiama demonstracinė chatbot versija. Pirmiausia buvo sukurta
+        testinė aplinka, kad būtų galima išbandyti dialogų logiką, pataisyti klaidas ir
+        pritaikyti naudotojo sąsają prieš integruojant sistemą į oficialią svetainę.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-box">
+      Šilutės profesinio mokymo centro chatbot demonstracinis puslapis.
+    </div>
+  </footer>
+
+  <df-messenger location="europe-west1" project-id="silutes-pmc-chatbot" agent-id="15da2d04-2a72-401f-9e8e-2ca1f528bc42"
+    language-code="lt" max-query-length="-1">
+
+    <df-messenger-chat-bubble chat-title="Klausk manęs"></df-messenger-chat-bubble>
+  </df-messenger>
+</body>
+
+</html>
