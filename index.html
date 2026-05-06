@@ -361,23 +361,23 @@
     <div class="hero-inner">
       <div>
         <div class="hero-badge">Bakalauro darbo demonstracinė versija</div>
-        <h1>Šilutės profesinio mokymo centro chatbotas</h1>
+        <h1>Šilutės profesinio mokymo centro pokalbių robotas</h1>
         <p>
-          Šis chatbotas padeda būsimiems ir esamiems mokiniams gauti informaciją apie
+          Šis pokalbių robotas padeda būsimiems ir esamiems mokiniams gauti informaciją apie
           mokyklą, siūlomas profesijas, dokumentus, stipendiją, bendrabutį ir kur kreiptis
           įvairiais klausimais.
         </p>
 
         <div class="hero-actions">
           <a class="hero-btn hero-btn-primary" href="#klausimai">Pavyzdiniai klausimai</a>
-          <a class="hero-btn hero-btn-secondary" href="#aprasymas">Apie chatbotą</a>
+          <a class="hero-btn hero-btn-secondary" href="#aprasymas">Apie pokalbių robotą</a>
         </div>
       </div>
 
       <aside class="hero-card">
-        <h2>Ką gali šis botas?</h2>
+        <h2>Ką gali šis pokalbių robotas?</h2>
         <p>
-          Chatbotas sukurtas kaip informacinė ir nukreipianti priemonė, padedanti greičiau
+          Pokalbių robotas sukurtas kaip informacinė ir nukreipianti priemonė, padedanti greičiau
           rasti aktualią informaciją ir tinkamą kontaktą.
         </p>
         <ul class="hero-list">
@@ -395,7 +395,7 @@
     <section class="info-panel" id="aprasymas">
       <h2>Apie chatbotą</h2>
       <p>
-        Chatbotas sukurtas testinei demonstracinei aplinkai. Jis leidžia išbandyti pagrindinius
+        Pokalbių robotas testinei demonstracinei aplinkai. Jis leidžia išbandyti pagrindinius
         dialogo scenarijus prieš galutinę integraciją į oficialią mokyklos svetainę.
       </p>
     </section>
@@ -440,15 +440,21 @@
 
   <footer class="footer">
     <div class="footer-box">
-      Šilutės profesinio mokymo centro chatbot demonstracinis puslapis.
+      Šilutės profesinio mokymo centro pokalbių roboto demonstracinis puslapis.
     </div>
   </footer>
 
-  <df-messenger location="europe-west1" project-id="silutes-pmc-chatbot" agent-id="15da2d04-2a72-401f-9e8e-2ca1f528bc42"
-    language-code="lt" max-query-length="-1" placeholder-text="Įrašykite klausimą...">
+  <df-messenger
+  location="europe-west1"
+  project-id="silutes-pmc-chatbot"
+  agent-id="15da2d04-2a72-401f-9e8e-2ca1f528bc42"
+  language-code="lt"
+  max-query-length="-1">
 
-    <df-messenger-chat-bubble chat-title="Klausk manęs"></df-messenger-chat-bubble>
-  </df-messenger>
+  <df-messenger-chat-bubble
+    chat-title="Pokalbių robotas"
+    placeholder-text="Įveskite klausimą...">
+  </df-messenger-chat-bubble>
 </body>
 
 </html>
